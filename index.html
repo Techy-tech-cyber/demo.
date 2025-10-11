@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Crush</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffe6f0;
+        text-align: center;
+        padding: 50px;
+        overflow-x: hidden;
+    }
+    input, button {
+        padding: 10px;
+        margin: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    button {
+        background-color: #ff66a3;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .page {
+        display: none;
+        margin-top: 50px;
+        font-size: 24px;
+        color: #d1006c;
+        position: relative;
+    }
+    .teddy {
+        margin-top: 20px;
+        width: 300px;
+        border-radius: 10px;
+    }
+    /* Heart Animation */
+    .heart {
+        position: absolute;
+        font-size: 24px;
+        color: red;
+        animation: float 4s linear infinite;
+        opacity: 0.8;
+    }
+    @keyframes float {
+        0% { transform: translateY(0) scale(1); opacity: 0.8; }
+        50% { opacity: 1; }
+        100% { transform: translateY(-600px) scale(1.5); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<!-- Login Page -->
+<div id="loginPage" class="page" style="display:block;">
+    <h1>Login to Reveal a Secret</h1>
+    <input type="text" id="userid" placeholder="Enter User ID"><br>
+    <input type="password" id="password" placeholder="Enter Password"><br>
+    <button onclick="checkLogin()">Enter 💖</button>
+    <div id="loginMessage" style="color:red; margin-top:10px;"></div>
+</div>
+
+<!-- Magic Page -->
+<div id="magicPage" class="page">
+    <h1>Are you a magician? 🪄</h1>
+    <p>Because whenever I look at you, everyone else disappears 😘</p>
+    <button onclick="nextPage()">Enter</button>
+</div>
+
+<!-- Love Page -->
+<div id="lovePage" class="page">
+    <h1>I love you! ❤️</h1>
+    <img class="teddy" src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif" alt="Cute Teddy GIF">
+</div>
+
+<script>
+function checkLogin() {
+    const user = document.getElementById('userid').value;
+    const pass = document.getElementById('password').value;
+    const loginMessage = document.getElementById('loginMessage');
+
+    if(user === "you" && pass === "2006") {
+        document.getElementById('loginPage').style.display = "none";
+        document.getElementById('magicPage').style.display = "block";
+        createHearts('magicPage');
+    } else {
+        loginMessage.textContent = "Oops! Wrong credentials 💌";
+    }
+}
+
+function nextPage() {
+    document.getElementById('magicPage').style.display = "none";
+    document.getElementById('lovePage').style.display = "block";
+    createHearts('lovePage');
+}
+
+// Function to create floating hearts
+function createHearts(pageId) {
+    const page = document.getElementById(pageId);
+    for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+        heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+        heart.textContent = '❤️';
+        page.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }
+
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+        heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+        heart.textContent = '❤️';
+        page.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
